@@ -1,0 +1,508 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodie - Online Food Order</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f7f7;
+        }
+
+        header {
+            background: #ff5722;
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        header h1 {
+            font-size: 30px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .cart-info {
+            background: white;
+            color: #ff5722;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 55px 15px;
+            background: #fff0e8;
+        }
+
+        .hero h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            margin-bottom: 20px;
+        }
+
+        .hero a {
+            display: inline-block;
+            background: #ff5722;
+            color: white;
+            padding: 12px 22px;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .menu {
+            padding: 40px 7%;
+        }
+
+        .menu h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 30px;
+        }
+
+        .food-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .food-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            text-align: center;
+            box-shadow: 0 3px 12px #ddd;
+            padding-bottom: 20px;
+        }
+
+        .food-card img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+        }
+
+        .food-card h3 {
+            margin: 15px 0 10px;
+        }
+
+        .price {
+            color: #ff5722;
+            font-size: 21px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background: #ff5722;
+            color: white;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #d84315;
+        }
+
+        .cart-section {
+            background: white;
+            margin: 20px 7% 40px;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #ddd;
+        }
+
+        .cart-section h2 {
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item button {
+            padding: 6px 10px;
+        }
+
+        .remove-btn {
+            background: #555;
+        }
+
+        .cart-total {
+            margin-top: 20px;
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .checkout-btn {
+            margin-top: 15px;
+        }
+
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media (max-width: 500px) {
+            header {
+                justify-content: center;
+            }
+
+            .hero h2 {
+                font-size: 28px;
+            }
+
+            .cart-item {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>college canteen.</h1>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#cart">Cart</a>
+    </nav>
+
+    <div class="cart-info">
+        🛒 Cart: <span id="cart-count">0</span>
+    </div>
+</header>
+
+<section class="hero" id="home">
+    <h2>Delicious Food, Delivered Fresh!</h2>
+    <p>Order your favourite food at the best price.</p>
+    <a href="#menu">Order Now</a>
+</section>
+
+<section class="menu" id="menu">
+    <h2>Our Food Menu</h2>
+
+    <div class="food-container">
+
+        <div class="food-card">
+            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80"
+                 alt="Cheese Burger">
+            <h3>Cheese Burger</h3>
+            <p class="price">₹149</p>
+            <button onclick="addToCart('Cheese Burger',149)">
+                Add to Cart
+            </button>
+        </div>
+
+        <div class="food-card">
+            <img src="images (21).jpg"
+                 alt="Cheese Pizza">
+            <h3>Cheese Pizza</h3>
+            <p class="price">₹249</p>
+            <button onclick="addToCart('Cheese Pizza',249)">
+                Add to Cart
+            </button>
+        </div>
+
+        <div class="food-card">
+            <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=600&q=80"
+                 alt="Fried Rice">
+            <h3>Fried Rice</h3>
+            <p class="price">₹129</p>
+            <button onclick="addToCart('Fried Rice',129)">
+                Add to Cart
+            </button>
+        </div>
+
+        <div class="food-card">
+            <img src="images (35).jpg"
+                 alt="Grilled Chicken">
+            <h3>Grilled Chicken</h3>
+            <p class="price">₹299</p>
+            <button onclick="addToCart('Grilled Chicken',299)">
+                Add to Cart
+            </button>
+        </div>
+        <div class="food-card">
+            <img src="rose milk.jpg">
+            <h3>Rose Milk</h3>
+            <p class="price">₹100</p>
+            <button onclick="addToCart('Rose Milk',100)">
+                Add to Cart
+            </button>
+        </div>
+        <div class="food-card">
+            <img src="images (22).jpg">
+            <h3>Chicken Biryani</h3>
+            <p class="price">₹215</p>
+            <button onclick="addToCart('Chicken Biryani',215)">
+                Add to cart
+            </button>
+        </div>
+        <div class="food-card">
+            <img src="images (23).jpg">
+            <h3>Dosa</h3>
+            <p class="price">₹60</p>
+            <button onclick="addToCart('Dosa',60)">
+                Add to cart
+            </button>
+        </div>
+        <div class="food-card">
+            <img src="images (24).jpg">
+            <h3>Idli</h3>
+            <p>5 pieces</p>
+            <p class="price">₹70</p>
+            <button onclick="addToCart('Idli',70)">
+                Add to Cart
+            </button>
+        </div>
+        <div class="food-card">
+            <img src="images (25).jpg">
+            <h3>Mutton Biryani</h3>
+            <p class="price">₹500</p>
+            <button onclick="addToCart('Mutton Biryani',500)">
+                Add to Cart
+            </button>
+        </div>
+        <div class="food-card">
+            <img src="images (26).jpg">
+            <h3>Veg noodles</h3>
+            <p class="price">₹125</p>
+            <button onclick="addToCart('Veg noodles',125)">
+                Add to card
+            </button>
+        </div>
+        <div class="food-card">
+            <img src="images (27).jpg">
+            <h3>Falooda</h3>
+            <p class="price">₹110</p>
+            <button onclick="addToCart('Falooda',110)">
+                Add to Cart
+            </button>
+        </div>
+        <div class="food-card">
+            <img src="images (28).jpg">
+            <h3>Samosa </h3>
+            <p>2 pieces</p>
+            <p class="price">₹35</p>
+            <button onclick="addToCart('Samosa',35)">
+                Add to Cart
+            </button>
+        </div>
+        <div class="food-card">
+            <img src="images (29).jpg">
+            <h3>Tea</h3>
+            <p class="price">₹25</p>
+            <button onclick="addToCart('Tea',25)">
+                Add to Cart
+            </button>
+        </div>
+        <div class="food-card">
+            <img src="images (30).jpg">
+            <h3>Chicken 65</h3>
+            <p>100g</p>
+            <p class="price">₹75</p>
+            <button onclick="addToCart('Chicken 65',75)">
+                Add to Cart
+            </button>
+        </div>
+        <div class="food-card">
+            <img src="images (31).jpg">
+            <h3>Paneer Tikka</h3>
+            <p class="price">₹155</p>
+            <button onclick="addToCart('Panner Tikka',155)">
+                Add to Cart
+            </button>
+        </div>
+        <div class="food-card">
+            <img src="images (32).jpg">
+            <h3>Ghee Rice</h3>
+            <p class="price">₹250</p>
+            <button onclick="addToCart('Ghee Rice',250)">
+                Add to Cart
+            </button>
+        </div>
+        <div class="food-card">
+            <img src="images (33).jpg">
+            <h3>Rasgulla</h3>
+            <p class="price">₹100</p>
+            <button onclick="addToCart('Rasgulla',100)">
+                Add to Cart
+            </button>
+        </div>
+        <div class="food-card">
+            <img src="images (34).jpg">
+            <h3>Egg Rice</h3>
+            <p class="price">₹100</p>
+            <button onclick="addToCart('Egg Rice',100)">
+                Add to Cart
+            </button>
+        </div>
+         <div class="food-card">
+            <img src="images (36).jpg">
+            <h3>vadai</h3>
+            <p>2 pieces</p>
+            <p class="price">₹24</p>
+            <button onclick="addToCart('vadai',24)">
+                Add to Cart
+            </button>
+         </div>
+         <div class="food-card">
+            <img src="images (37).jpg">
+            <h3>curd rice</h3>
+            <p class="price">₹50</p>
+            <button onclick="addToCart('curd rice',50)">
+                Add to Cart
+            </button>
+         </div>
+
+    </div>
+</section>
+
+<section class="cart-section" id="cart">
+    <h2>🛒 Your Shopping Cart</h2>
+
+    <div id="cart-items">
+        Your cart is empty.
+    </div>
+
+    <p class="cart-total">
+        Total: ₹<span id="total">0</span>
+    </p>
+
+    <button class="checkout-btn" onclick="checkout()">
+        Checkout
+    </button>
+</section>
+
+<footer>
+    <p>© 2026 Foodie Restaurant | Fresh Food, Happy Life!</p>
+</footer>
+
+<script>
+    let cart = [];
+
+    function addToCart(name, price) {
+        let item = cart.find(food => food.name === name);
+
+        if (item) {
+            item.quantity++;
+        } else {
+            cart.push({
+                name: name,
+                price: price,
+                quantity: 1
+            });
+        }
+
+        displayCart();
+    }
+
+    function changeQuantity(name, amount) {
+        let item = cart.find(food => food.name === name);
+
+        if (item) {
+            item.quantity += amount;
+
+            if (item.quantity <= 0) {
+                cart = cart.filter(food => food.name !== name);
+            }
+        }
+
+        displayCart();
+    }
+
+    function removeItem(name) {
+        cart = cart.filter(food => food.name !== name);
+        displayCart();
+    }
+
+    function displayCart() {
+        let cartItems = document.getElementById("cart-items");
+        let total = 0;
+        let count = 0;
+
+        cartItems.innerHTML = "";
+
+        if (cart.length === 0) {
+            cartItems.textContent = "Your cart is empty.";
+        }
+
+        cart.forEach(food => {
+            let itemTotal = food.price * food.quantity;
+
+            total += itemTotal;
+            count += food.quantity;
+
+            cartItems.innerHTML += `
+                <div class="cart-item">
+                    <span>
+                        <strong>${food.name}</strong><br>
+                        ₹${food.price} × ${food.quantity}
+                        = ₹${itemTotal}
+                    </span>
+
+                    <div>
+                        <button onclick="changeQuantity('${food.name}', -1)">−</button>
+                        <button onclick="changeQuantity('${food.name}', 1)">+</button>
+                        <button class="remove-btn"
+                            onclick="removeItem('${food.name}')">
+                            Remove
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+
+        document.getElementById("total").textContent = total;
+        document.getElementById("cart-count").textContent = count;
+    }
+
+    function checkout() {
+        if (cart.length === 0) {
+            alert("Your cart is empty! Please add food first.");
+            return;
+        }
+
+        let total = cart.reduce(
+            (sum, food) => sum + food.price * food.quantity, 0
+        );
+
+        alert("Order Summary\nTotal Amount: ₹" + total +
+              "\nThis is a demo checkout.");
+    }
+</script>
+
+</body>
+</html>
